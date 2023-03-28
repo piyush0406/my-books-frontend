@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
@@ -13,9 +13,89 @@ import {RiUploadCloud2Fill} from 'react-icons/ri'
 import NavElement from '../Header/index'
 import { Button, Card } from 'react-bootstrap';
 
+import Swal from 'sweetalert2';
+import axios from 'axios';
+
 import './AddBook.css'
 
 function AddBook() {
+    const [title, setTitle] = useState('');
+    const [cover, setCover] = useState('');
+    const [pdf, setPdf] = useState('');
+    const [writer, setWriter] = useState('');
+    const [readTime, setReadTime] = useState('');
+    const [details, setDetails] = useState('');
+
+    function onImageChange(e){
+        // setCover([e.target.files][0])
+        const img = {
+            // preview: URL.createObjectURL(e.target.files[0]),
+            data: e.target.files[0],
+          }
+          setCover(img)
+          console.log("Image", img);
+    }
+    
+    function onPDFChange(e){
+        // setPdf([e.target.files])
+        const file = {
+            // preview: URL.createObjectURL(e.target.files[0]),
+            data: e.target.files[0],
+          }
+          setPdf(file)
+          console.log("PDF", file);
+    }
+
+    
+    const createBook =  async(e) => {
+        e.preventDefault()
+        // const Data={"title":title,"cover":cover,"pdf":pdf,"writer":writer,"readTime":readTime,"details":details}
+        // console.log("hello", Data);
+        const formData = new FormData();
+
+        formData.append("title",title);
+        formData.append("cover",cover.data);
+        formData.append("pdf",pdf.data);
+        formData.append("writer",writer);
+        formData.append("readTime",readTime);
+        formData.append("details",details);
+        
+        console.log([...formData]);
+
+        for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
+
+        const response = await axios.post("http://localhost:5000/book/createBook" , formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+        console.log(response.data);
+        // axios
+        //   .post('http://localhost:5000/book/createBook' , Data)
+        //   .then( async res => {
+        //     await Swal.fire({
+        //       icon: 'success',
+        //       title: 'Book Created!',
+        //       text: 'Book was added successfully.'
+        //     })
+        //     .then((result) => {
+        //       if (result.isConfirmed){
+        //         window.location.href='/';
+        //       }
+        //     })
+        //   })
+        //   .catch(err => {
+        //     console.log(err);
+        //     Swal.fire({
+        //       icon: 'error',
+        //       title: 'Oops...',
+        //       text: 'Something went wrong!',
+        //       footer: JSON.stringify(err.response.data)
+        //     })
+        //   });
+      }
 
     const bookCover= useRef(null);
     const bookPDF= useRef(null);
@@ -27,6 +107,8 @@ function AddBook() {
     const handleClickPDF = () => {
         bookPDF.current.click();
         }
+
+   
 
     return (
         <div>
@@ -51,25 +133,25 @@ function AddBook() {
                     </div>
                 </Col>                
                 <Col className='mt-4' sm={12} lg={4} xl={5} xxl={6}>
-                <Form>
+                <Form action="#" enctype="multipart/form-data" method="post">
                 <Form.Group className="mb-3" controlId="formGridAddress1">
                     <Form.Label>Name of the Book<span><AiOutlineInfoCircle/></span></Form.Label>
-                    <Form.Control placeholder="Enter the published name" required/>
+                    <Form.Control type="text" onChange={e => setTitle(e.target.value)} value={title} placeholder="Enter the published name" required/>
                 </Form.Group>
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridEmail">
                     <Form.Label>Author of the Book<span><AiOutlineInfoCircle/></span></Form.Label>
-                    <Form.Control type="text" placeholder="Add all the authors comma seperated" required/>
+                    <Form.Control type="text" onChange={e => setWriter(e.target.value)} value={writer} placeholder="Add all the authors comma seperated" required/>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
                     <Form.Label>Book read time<span><AiOutlineInfoCircle/></span></Form.Label>
-                    <Form.Control type="text" placeholder="Add time in mins" required/>
+                    <Form.Control type="text" onChange={e => setReadTime(e.target.value)} value={readTime} placeholder="Add time in mins" required/>
                     </Form.Group>
                 </Row>
                 <Form.Group className="mb-3" controlId="formGridAddress2">
                     <Form.Label>Book Details<span><AiOutlineInfoCircle/></span></Form.Label>
-                    <Form.Control as="textarea" rows={4} placeholder="Should not be more than 300 words" required/>
+                    <Form.Control as="textarea" rows={4} onChange={e => setDetails(e.target.value)} value={details} placeholder="Should not be more than 300 words" required/>
                 </Form.Group>
                 
                 <Form.Group controlId="formFile" className="mb-3">
@@ -83,10 +165,12 @@ function AddBook() {
                     </Card>
                 </Form.Group>
                 <div className='hidden-input'>
-                    <Form.Control ref={bookCover} type="file" accept="image/*" required/>
-                    <Form.Control ref={bookPDF} type="file" accept="application/pdf" required/>
+                    {/* <Form.Control accept="image/*" /> */}
+                    <input name="cover" ref={bookCover} type="file" onChange={onImageChange} accept="image/png, image/jpeg"/>
+                    <input name="pdf" ref={bookPDF} type="file" onChange={onPDFChange} accept="application/pdf" />
+                    {/* <Form.Control  accept="application/pdf" /> */}
                 </div>
-                <Button variant="primary" type="submit">
+                <Button onClick={createBook} variant="primary" type="submit">
                     Add a Book
                 </Button>
                 </Form>                    

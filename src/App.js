@@ -22,7 +22,7 @@ class App extends Component {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/addbook" title="Add a Book" element={<AddBook/>}/>
-            <Route path="/viewbook" element={<ViewBook/>}/>
+            <Route path="/viewbook/:_id" element={<ViewBook/>}/>
           </Routes>
         </div>
       </BrowserRouter>

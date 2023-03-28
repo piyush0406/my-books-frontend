@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import NavElement from '../Header/index'
 
@@ -16,11 +16,38 @@ import {MdOutlineArrowBackIos} from 'react-icons/md'
 import {FaStar} from 'react-icons/fa'
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from "react-icons/ai"
 
-import pdf from '../../media/lab7-webd.pdf'
 import './ViewBook.css'
 import { Button, Image, ProgressBar } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function ViewBook() {
+
+    const { _id } = useParams();
+
+    const [bookDetail,setBookDetail]=useState([])
+
+    useEffect(() => {
+        fetchData();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
+    
+      const fetchData = () => {
+        axios
+        .get(`http://localhost:5000/book/getBookById/${_id}`)
+        .then( async(res) => {
+            console.log("res.data : ",res.data);
+
+            // const data =await res.data?.books?.map(async(item)=>{
+            //     console.log(item.cover);
+            //     const re=await import `${item.cover}`
+            //     return{ ...item, cover: re.default}
+            // })
+            console.log("Data mod : ",res.data);
+            setBookDetail(res.data.book[0])
+        });
+      }
+
     const ratingChanged = (newRating) => {
         console.log(newRating);
       };
@@ -50,6 +77,8 @@ export default function ViewBook() {
         changePage(+1)
     }
 
+    console.log("ide",bookDetail);
+
     return (
         <div>
             <Helmet>
@@ -65,21 +94,16 @@ export default function ViewBook() {
                 <Col className='mt-4' md={12} lg={6} xl={5} xxl={4}>
                     <div className='book-cover'>
                     <Image
-                        src="https://1.bp.blogspot.com/-BYonzSS5IQg/VVnWtaZYLII/AAAAAAAACI4/2NLQXx0Jaso/s1600/Book-Review-The-Martian.jpg"
+                        src={bookDetail.cover}
                     />
                     </div>
                 </Col>                
                 <Col className='mt-4' sm={12} lg={4} xl={5} xxl={6}>
                     <div>
-                        <div className='book-header'>The Martian</div>
-                        <div className='book-writer'>Andy Weir</div>
-                        <div className='book-read-time'>Book Read Time: </div>
-                        <div className='book-detail'>When astronauts blast off from the planet Mars, they 
-                        leave behind Mark Watney (Matt Damon), presumed dead after a fierce storm. With only 
-                        a meager amount of supplies, the stranded visitor must utilize his wits and spirit to 
-                        find a way to survive on the hostile planet. Meanwhile, back on Earth, members of NASA 
-                        and a team of international scientists work tirelessly to bring him home, while his 
-                        crew mates hatch their own plan for a daring rescue mission.</div>
+                        <div className='book-header'>{bookDetail.title}</div>
+                        <div className='book-writer'>{bookDetail.writer}</div>
+                        <div className='book-read-time'>Book Read Time: {bookDetail.readTime} mins</div>
+                        <div className='book-detail'>{bookDetail.details}</div>
                         <div className='book-rate mt-5'>
                             <Row md={2}>
                                 <Col md={5}>
@@ -151,7 +175,7 @@ export default function ViewBook() {
                 <Modal.Body>
                 <div className="">
                     <center>
-                    <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
+                    <Document file={bookDetail.pdf} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page height="600" pageNumber={pageNumber} renderTextLayer={false} renderAnnotationLayer={false} />
                     </Document>                    
                     <p> Page {pageNumber} of {numPages}</p>
