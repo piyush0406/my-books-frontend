@@ -1,0 +1,124 @@
+.btn-top-add {
+    margin-left: 4rem;
+}
+
+.content-add {
+    margin-left: 4rem;
+}
+
+
+.book-cover-add a{
+    text-decoration: none;
+}
+
+.new-cover-add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 4px;
+    gap: 12px;
+    width: 190px;
+    height: 275px;
+    background: #FFFFFF;
+    border: 1px dashed #27378C;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.form-label:after {
+        content:"*";
+        color:red;
+}
+
+.form-label {
+    width: 100%;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000;
+}
+
+.form-label span{
+    float: right;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 992px) {
+    .btn-top-add {
+        margin-left: 0rem !important;
+    }
+    .content-add {
+        margin-left: 0rem !important;
+    }
+    .book-cover-add {
+        height: 90vh !important;
+    }
+    .new-cover-add {
+        width: 90% !important;
+        height: 90% !important;
+    }
+  }
+
+@media only screen and (max-width: 576px) {
+    .book-cover-add {
+        margin-left: 0rem !important;
+        height: 70vh !important;
+    }
+    .new-cover-add {
+        width: 100% !important;
+        height: 100% !important;
+    }
+  }
+
+.hidden-input {
+    display: none;
+}
+
+.new-card-pdf {
+    flex-direction: column;
+}
+
+.new-cover-pdf {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 4px;
+    gap: 12px;
+    width: 190px;
+    height: 275px;
+    background: #FFFFFF;
+    border: 1px dashed #CCCCCC;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.icon-pdf {
+    font-size: 1.8rem;
+    color: #27378C;
+}
+
+.header-pdf {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.header-pdf span{
+    color: #27378C;
+    border-bottom: 1px solid;
+    padding-bottom: 0px;
+}
+
+.title-pdf {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    color: #7A7A7A;
+}

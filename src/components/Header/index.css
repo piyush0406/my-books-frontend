@@ -1,0 +1,38 @@
+/* @import url('ttps://api.fontshare.com/v2/css?f[]=satoshi@1,900,700,500,301,701,300,501,401,901,400,2&display=swap'); */
+
+.navbar {
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+  background-color: #fff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+  left: -5rem;
+}
+
+.navbar-nav a {
+  color: #27378c !important;
+  /* font-family: 'Satoshi', sans-serif;                                                 */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px !important;
+  line-height: 22px !important;
+  text-transform: capitalize;
+}
+
+.active {
+  width: 45px;
+  height: 22px;
+  font-weight: 700 !important;
+  font-size: 16px;
+  line-height: 22px;
+  text-decoration-line: underline;
+  text-transform: capitalize;
+}
+
+.dropdown button{
+    margin-right: 3rem !important;
+}

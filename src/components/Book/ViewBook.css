@@ -1,0 +1,167 @@
+.btn-top {
+    margin-left: 4rem;
+}
+
+.content {
+    margin-left: 4rem;
+}
+
+.btn-back {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn-primary{
+    background-color: #27378C !important;
+    border-color: #27378C !important;
+}
+
+.btn-outline-primary{
+    border-color: #27378C !important;
+    color: #27378C !important;
+}
+
+.btn-outline-primary:hover{
+    border-color: #27378C !important;
+    background-color: #27378C !important;
+    color: white !important;
+}
+
+@media only screen and (max-width: 992px) {
+    .book-cover {
+        height: 100vw;
+        margin-left: 8rem !important;
+    }
+    .book-cover img{
+        width: 70%;
+        height: 65%;
+    }
+    .btn-top {
+        margin-left: 0rem !important;
+    }
+    .content{
+        margin-left: 0rem !important;
+    }
+  }
+
+@media only screen and (max-width: 576px) {
+    .book-cover {
+        margin-left: 3rem !important;
+        height: 100vw;
+    }
+    .book-cover img{
+        width: 70%;
+        height: 45%;
+    }
+  }
+
+.book-cover img{
+    position: absolute;
+    /* width: 425px;
+    height: 650px; */
+    filter: drop-shadow(1.87536px 1.87536px 1.87536px rgba(0, 0, 0, 0.25));
+    border-radius: 11.2522px;
+}
+
+.book-header {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 54px;
+    color: #27378C;
+}
+
+.book-writer {
+    padding-top: 0.8rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    color: #545454;
+}
+
+.book-read-time {
+    padding-top: 0.5rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    color: #545454;
+}
+
+.book-detail {
+    padding-top: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+}
+
+.rating-bar {
+    height: 10rem;
+    border-right: 1px solid;
+    border-color: #545454 !important;
+}
+
+.rate-header {
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 150%;
+letter-spacing: 0.15px;
+color: rgba(0, 0, 0, 0.7);
+}
+
+.progress {
+    margin-left: 6px;
+    height: 6px;
+    width: 250px;
+    display: flex;
+}
+
+.rate-meter {
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.overall-rating {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.overall-rating span{
+    font-size: 1rem;
+    margin-left: .5rem;
+    color: #FFB400;
+}
+
+.total-rating {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    color: rgba(0, 0, 0, 0.38);
+    margin-bottom: 1rem;
+}
+
+.star-heading {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000;
+}
+
+.star-btn {
+    margin-top: -2rem;
+}
