@@ -20,20 +20,9 @@ function HeroSection() {
         axios
         .get('http://localhost:5000/book/getBook')
         .then( async(res) => {
-            console.log("res.data : ",res.data);
-
-            // const data =await res.data?.books?.map(async(item)=>{
-            //     console.log(item.cover);
-            //     const re=await import `${item.cover}`
-            //     return{ ...item, cover: re.default}
-            // })
-
-            console.log("Data mod : ",res.data);
             setBookData(res.data)
         });
     }
-
-console.log("bookDAta",bookData);
 
     
     
@@ -48,7 +37,7 @@ console.log("bookDAta",bookData);
             <Col>
             <Card className='mb-2 mx-5' border="light" style={{ width: '240px', height: '405px' }}>
             <a href={`/viewbook/${item._id}`}>
-            <Card.Img variant="top" width='240px' height='332px' src={item.cover} />
+            <Card.Img variant="top" width='240px' height='332px' src={`http://localhost:5000/${item.cover}`} />
             <Card.Body className='px-0 py-0'>
                 <Card.Title className='my-0'>{item.title}</Card.Title>
                 <Card.Text>{item.writer}</Card.Text>

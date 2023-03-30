@@ -36,14 +36,6 @@ export default function ViewBook() {
         axios
         .get(`http://localhost:5000/book/getBookById/${_id}`)
         .then( async(res) => {
-            console.log("res.data : ",res.data);
-
-            // const data =await res.data?.books?.map(async(item)=>{
-            //     console.log(item.cover);
-            //     const re=await import `${item.cover}`
-            //     return{ ...item, cover: re.default}
-            // })
-            console.log("Data mod : ",res.data);
             setBookDetail(res.data.book[0])
         });
       }
@@ -77,8 +69,6 @@ export default function ViewBook() {
         changePage(+1)
     }
 
-    console.log("ide",bookDetail);
-
     return (
         <div>
             <Helmet>
@@ -94,7 +84,7 @@ export default function ViewBook() {
                 <Col className='mt-4' md={12} lg={6} xl={5} xxl={4}>
                     <div className='book-cover'>
                     <Image
-                        src={bookDetail.cover}
+                        src={`http://localhost:5000/${bookDetail.cover}`}
                     />
                     </div>
                 </Col>                
@@ -102,7 +92,7 @@ export default function ViewBook() {
                     <div>
                         <div className='book-header'>{bookDetail.title}</div>
                         <div className='book-writer'>{bookDetail.writer}</div>
-                        <div className='book-read-time'>Book Read Time: {bookDetail.readTime} mins</div>
+                        <div className='book-read-time'>Book Read Time: {`${Math.floor(bookDetail.readTime / 60)} hours ${bookDetail.readTime % 60} mins`}</div>
                         <div className='book-detail'>{bookDetail.details}</div>
                         <div className='book-rate mt-5'>
                             <Row md={2}>
@@ -175,7 +165,7 @@ export default function ViewBook() {
                 <Modal.Body>
                 <div className="">
                     <center>
-                    <Document file={bookDetail.pdf} onLoadSuccess={onDocumentLoadSuccess}>
+                    <Document file={`http://localhost:5000/${bookDetail.pdf}`} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page height="600" pageNumber={pageNumber} renderTextLayer={false} renderAnnotationLayer={false} />
                     </Document>                    
                     <p> Page {pageNumber} of {numPages}</p>
@@ -188,15 +178,7 @@ export default function ViewBook() {
                     }
                     </center>           
                 </div>                   
-                </Modal.Body>
-                {/* <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
-                </Modal.Footer> */}
+                </Modal.Body>                
             </Modal>
             </div>
            </Container>

@@ -51,15 +51,15 @@
         height: 100vw;
     }
     .book-cover img{
-        width: 70%;
-        height: 45%;
+        width: 70% !important;
+        height: 45% !important;
     }
   }
 
 .book-cover img{
     position: absolute;
-    /* width: 425px;
-    height: 650px; */
+    width: 425px;
+    height: 650px;
     filter: drop-shadow(1.87536px 1.87536px 1.87536px rgba(0, 0, 0, 0.25));
     border-radius: 11.2522px;
 }

@@ -27,30 +27,22 @@ function AddBook() {
     const [details, setDetails] = useState('');
 
     function onImageChange(e){
-        // setCover([e.target.files][0])
         const img = {
-            // preview: URL.createObjectURL(e.target.files[0]),
             data: e.target.files[0],
           }
           setCover(img)
-          console.log("Image", img);
     }
     
     function onPDFChange(e){
-        // setPdf([e.target.files])
         const file = {
-            // preview: URL.createObjectURL(e.target.files[0]),
             data: e.target.files[0],
           }
           setPdf(file)
-          console.log("PDF", file);
     }
 
     
     const createBook =  async(e) => {
         e.preventDefault()
-        // const Data={"title":title,"cover":cover,"pdf":pdf,"writer":writer,"readTime":readTime,"details":details}
-        // console.log("hello", Data);
         const formData = new FormData();
 
         formData.append("title",title);
@@ -59,42 +51,35 @@ function AddBook() {
         formData.append("writer",writer);
         formData.append("readTime",readTime);
         formData.append("details",details);
+
         
-        console.log([...formData]);
-
-        for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
-        }
-
-        const response = await axios.post("http://localhost:5000/book/createBook" , formData, {
+        axios
+          .post("http://localhost:5000/book/createBook" , formData, {
             headers: {
-              "Content-Type": "multipart/form-data",
-            },
+                "Content-Type": "multipart/form-data",
+              },
+            })
+          .then( async res => {
+            await Swal.fire({
+              icon: 'success',
+              title: 'Book Created!',
+              text: 'Book was added successfully.'
+            })
+            .then((result) => {
+              if (result.isConfirmed){
+                window.location.href='/';
+              }
+            })
           })
-        console.log(response.data);
-        // axios
-        //   .post('http://localhost:5000/book/createBook' , Data)
-        //   .then( async res => {
-        //     await Swal.fire({
-        //       icon: 'success',
-        //       title: 'Book Created!',
-        //       text: 'Book was added successfully.'
-        //     })
-        //     .then((result) => {
-        //       if (result.isConfirmed){
-        //         window.location.href='/';
-        //       }
-        //     })
-        //   })
-        //   .catch(err => {
-        //     console.log(err);
-        //     Swal.fire({
-        //       icon: 'error',
-        //       title: 'Oops...',
-        //       text: 'Something went wrong!',
-        //       footer: JSON.stringify(err.response.data)
-        //     })
-        //   });
+          .catch(err => {
+            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+              footer: JSON.stringify(err.response.data)
+            })
+          });
       }
 
     const bookCover= useRef(null);
